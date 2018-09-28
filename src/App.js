@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 import Rooms from './containers/ShowRooms.js'
+import ChooseDate from './containers/ChooseDate.js'
 import { store } from './store.js'
 
 
 const style = {
-  width: '70%',
+  maxWidth: '70%',
   margin: '0 auto',
-  display: 'flex',
+  display: 'flex',  
+  backgroundColor:'white',
+  marginTop: '2%',
+  width: '100%',
 }
 
 class App extends Component {
@@ -20,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div style={style}>
-        <Rooms {...this.state}/>
+        <ChooseDate {...this.state}/>
       </div>
     );
   }

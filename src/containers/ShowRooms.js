@@ -11,11 +11,7 @@ const style = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
   },
-  background: {
-    backgroundColor:'white',
-    marginTop: '2%',
-    width: '100%',
-  } 
+
 }
 
 class ShowRooms extends Component {
