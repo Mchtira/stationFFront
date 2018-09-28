@@ -12,27 +12,29 @@ class RoomFilter extends Component {
       capacity: this.props.capacity,
       date: this.props.date,
     }
-    filterRooms(form)
+    filterRooms(form).then(actions.loadRooms)
   }
 
   render() {
     return (
       <div>
-        <div>
-          Capacité minimum : <input onChange={e => this.handleCapacity(e.target.value)} type='number'/>
-        </div>
-        <div>
-          <input type='checkbox' onChange={() => this.handleCheckbox('TV')}/>
-          <label>TV</label>
-          <input type='checkbox' onChange={() => this.handleCheckbox('Retro Projecteur')}/>
-          <label>Rétro Projecteur</label>
-        </div>
-        <div>
-          <input onChange={e => this.handleDate(e.target.value)} type='date'/>
-        </div>
-        <div>
-          <button onClick={this.sendForm}>Filter</button>
-        </div>
+        <form onSubmit={e => e.preventDefault()}>
+          <div>
+            Capacité minimum : <input onChange={e => this.handleCapacity(e.target.value)} type='number'/>
+          </div>
+          <div>
+            <input type='checkbox' onChange={() => this.handleCheckbox('TV')}/>
+            <label>TV</label>
+            <input type='checkbox' onChange={() => this.handleCheckbox('Retro Projecteur')}/>
+            <label>Rétro Projecteur</label>
+          </div>
+          <div>
+            <input onChange={e => this.handleDate(e.target.value)} type='date'/>
+          </div>
+          <div>
+            <button onClick={this.sendForm}>Filter</button>
+          </div>
+        </form>
       </div>
     );
   }

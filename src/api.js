@@ -11,5 +11,6 @@ export const filterRooms = (filters) => {
       body: JSON.stringify(filters),
       headers: { 'Content-Type': 'application/json' },
     })
+    .then(rooms => rooms.json())
   )
 }

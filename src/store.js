@@ -12,7 +12,7 @@ const reducer = (state, action) => {
   if (action.type === 'LOAD_ROOMS') {
     return {
       ...state, 
-      rooms: action.rooms.rooms
+      rooms: action.rooms
     } 
   }
   if (action.type === 'FILTER_EQUIPEMENT') {

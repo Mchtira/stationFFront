@@ -14,6 +14,7 @@ const style = {
   background: {
     backgroundColor:'white',
     marginTop: '2%',
+    width: '100%',
   } 
 }
 
