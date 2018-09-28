@@ -16,12 +16,13 @@ export const filterRooms = (filters) => {
 }
 
 export const filterDate = (date) => {
+    return (
     fetch(`http://localhost:4000/reservation/`,
-    {
-      method: 'post',
-      body: JSON.stringify(date),
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(rooms => rooms.json())
+      {
+        method: 'post',
+        body: JSON.stringify(date),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(rooms => rooms.json())
   )
 }
