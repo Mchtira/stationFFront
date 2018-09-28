@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div style={style}>
-        <ChooseDate {...this.state}/>
+        <ChooseDate onChange={console.log(this.state)} {...this.state}/>
       </div>
     );
   }

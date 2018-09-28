@@ -14,3 +14,14 @@ export const filterRooms = (filters) => {
     .then(rooms => rooms.json())
   )
 }
+
+export const filterDate = (date) => {
+    fetch(`http://localhost:4000/reservation/`,
+    {
+      method: 'post',
+      body: JSON.stringify(date),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(rooms => rooms.json())
+  )
+}
