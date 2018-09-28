@@ -33,6 +33,7 @@ class ShowRoom extends Component {
         <div><img style={style.image}src={workingPlace} alt={this.props.name}/></div>
         <div>{this.props.name}</div>
         <div>{this.props.description}</div>
+        <div>Capacité : {this.props.capacity}</div>
         <div>Equipements : </div>
         {this.props.equipements[0]
         ? <div style={style.equipements}>
