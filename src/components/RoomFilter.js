@@ -8,12 +8,9 @@ class RoomFilter extends Component {
   handleDate = date => actions.handleDate(date)
   sendForm = () => {
     const form = {
+      equipements: this.props.equipements,
       capacity: this.props.capacity,
       date: this.props.date,
-      equipements: {
-        retroprojecteur: this.props.retroprojecteur,
-        tv: this.props.tv,
-      },
     }
     filterRooms(form)
   }
@@ -25,9 +22,9 @@ class RoomFilter extends Component {
           Capacité minimum : <input onChange={e => this.handleCapacity(e.target.value)} type='number'/>
         </div>
         <div>
-          <input type='checkbox' onChange={() => this.handleCheckbox('tv')}/>
+          <input type='checkbox' onChange={() => this.handleCheckbox('TV')}/>
           <label>TV</label>
-          <input type='checkbox' onChange={() => this.handleCheckbox('retroprojecteur')}/>
+          <input type='checkbox' onChange={() => this.handleCheckbox('Retro Projecteur')}/>
           <label>Rétro Projecteur</label>
         </div>
         <div>

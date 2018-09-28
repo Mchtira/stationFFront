@@ -1,10 +1,9 @@
 import { createStore } from 'redux'
 
 const initialState = {
-  rooms: '',
-  tv: false,
-  retroprojecteur: false,
+  equipements: [],
   capacity: 0,
+  rooms: '',
   date: '',
 }
 
@@ -17,9 +16,15 @@ const reducer = (state, action) => {
     } 
   }
   if (action.type === 'FILTER_EQUIPEMENT') {
+    let equipements = state.equipements
+    if (state.equipements.includes(action.equipement)) {
+      equipements = equipements.filter( equipement => equipement !== action.equipement)
+    } else {
+      equipements.push(action.equipement)
+    }
     return {
       ...state,
-      [action.equipement]: !state[action.equipement]
+      equipements
     }
   }
   if (action.type === 'FILTER_CAPACITY') {
