@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import workingPlace from '../asset/workingPlace.jpeg'
 
 const style = {
   room: {
@@ -30,7 +29,6 @@ class ShowRoom extends Component {
   render() {
     return (
       <div style={style.room}>
-        <div><img style={style.image}src={workingPlace} alt={this.props.name}/></div>
         <div>{this.props.name}</div>
         <div>{this.props.description}</div>
         <div>Capacité : {this.props.capacity}</div>
