@@ -4,11 +4,11 @@ import { filterRooms } from '../api.js'
 
 class RoomFilter extends Component {
   sendForm = () => {
-    const form = {
+    const filters = {
       equipements: store.getState().equipements,
       capacity: store.getState().capacity,
     }
-    filterRooms(form).then(actions.loadRooms)
+    filterRooms(filters).then(actions.loadRooms)
   }
 
   handleCheckbox = equipement => {

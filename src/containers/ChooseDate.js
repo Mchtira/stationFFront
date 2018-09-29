@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { actions } from '../store.js'
+import { filterDate } from '../api.js'
+
 
 class SelectDate extends Component {
   handleDate = (e) => {
     e.preventDefault()
-  }
-  handleDay = (e) => {
-    actions.handleDay(e.target.value)
-  }
-
-  handleStartHour = (e) => {
-    actions.handleStartHour(e.target.value)
+    const date = this.props.reservation
+    console.log(date)
+    filterDate(date).then(actions.loadRooms)
   }
 
-  handleEndHour = (e) => {
-    actions.handleEndHour(e.target.value)
-  }
+  handleDay = (e) => actions.handleDay(e.target.value)
+
+  handleStartHour = (e) => actions.handleStartHour(e.target.value)
+
+  handleEndHour = (e) => actions.handleEndHour(e.target.value)
 
   render() {
     return (

@@ -17,7 +17,7 @@ export const filterRooms = (filters) => {
 
 export const filterDate = (date) => {
     return (
-    fetch(`http://localhost:4000/reservation/`,
+    fetch(`http://localhost:4000/availableRooms/`,
       {
         method: 'post',
         body: JSON.stringify(date),
