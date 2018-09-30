@@ -1,14 +1,16 @@
 import { createStore } from 'redux'
 
 const initialState = {
+  choosenRoom: '',
   equipements: [],
+  message: '',
   capacity: 0,
   rooms: '',
   reservation: {
     startHour: '',
     endHour: '',
     day: '',
-  }
+  },
 }
 
 const reducer = (state, action) => {
@@ -36,14 +38,26 @@ const reducer = (state, action) => {
       ...state,
       reservation: {
         ...state.reservation,
-        endHour: action.hour}
+        endHour: action.hour
+      }
     }  
   } else if (action.type === 'ADD_START_HOURS') {
     return {
       ...state,
       reservation: {
         ...state.reservation,
-        startHour: action.hour}
+        startHour: action.hour
+      }
+    }
+  } else if (action.type === 'ADD_ROOM') {
+    return {
+      ...state,
+      choosenRoom: action.room
+    }
+  } else if (action.type === 'SHOW_MESSAGE') {
+    return {
+      ...state,
+      message: action.message,
     }
   } else if (action.type === 'FILTER_EQUIPEMENT') {
     let equipements = state.equipements
@@ -64,9 +78,11 @@ export const actions = {
   loadRooms: (rooms) => store.dispatch({ type: 'LOAD_ROOMS', rooms }),
   handleCheckbox: (equipement) => store.dispatch({ type: 'FILTER_EQUIPEMENT', equipement }),
   handleCapacity: (capacity) => store.dispatch({ type: 'FILTER_CAPACITY', capacity }),
-  handleDay: (day) => store.dispatch({ type: 'ADD_DAY', day}),
-  handleEndHour: (hour) => store.dispatch({ type: 'ADD_END_HOURS', hour}),
-  handleStartHour: (hour) => store.dispatch({ type: 'ADD_START_HOURS', hour}),
+  handleDay: (day) => store.dispatch({ type: 'ADD_DAY', day }),
+  handleEndHour: (hour) => store.dispatch({ type: 'ADD_END_HOURS', hour }),
+  handleStartHour: (hour) => store.dispatch({ type: 'ADD_START_HOURS', hour }),
+  handleRoomReservation: (room) => store.dispatch({ type: 'ADD_ROOM', room }),
+  showMessage: (message) => store.dispatch({ type: 'SHOW_MESSAGE', message })
 }
 
 export const store = createStore(reducer, initialState)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Reservation from './Reservation.js'
 
 const style = {
   room: {
@@ -18,15 +19,11 @@ const style = {
     alignItems:'center',
     justifyContent: 'center',
   },
-  image: {
-    objectFit: 'cover no-repeat',
-    width : '100%',
-    height: '25vh',
-  }
 }
 
 class ShowRoom extends Component {
   render() {
+    console.log(this.props)
     return (
       <div style={style.room}>
         <div>{this.props.name}</div>
@@ -39,6 +36,7 @@ class ShowRoom extends Component {
             <div key={equipement.name}>{equipement.name}</div>)}
           </div>
         : <div>Salle sans équipement</div>}
+          <Reservation {...this.props}/>
       </div>
     );
   }

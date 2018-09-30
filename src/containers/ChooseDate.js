@@ -7,7 +7,6 @@ class SelectDate extends Component {
   handleDate = (e) => {
     e.preventDefault()
     const date = this.props.reservation
-    console.log(date)
     filterDate(date).then(actions.loadRooms)
   }
 
@@ -23,12 +22,10 @@ class SelectDate extends Component {
         <form onSubmit={this.handleDate}>
           <div>
             Choisissez la date de reservation : <input onChange={this.handleDay} type='date'/>
-          </div>
-          <div> 
             ainsi que l'heure : de <input onChange={this.handleStartHour} type='time' /> 
             à <input onChange={this.handleEndHour} type='time' />
+            <input type='submit' />
           </div>
-          <input type='submit' />
         </form>
       </React.Fragment> 
     );
