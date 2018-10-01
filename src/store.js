@@ -4,8 +4,9 @@ const initialState = {
   choosenRoom: '',
   equipements: [],
   message: '',
-  capacity: 0,
-  rooms: '',
+  modalMessage: '',
+  capacity: '',
+  rooms: 'no rooms',
   reservation: {
     startHour: '',
     endHour: '',
@@ -14,11 +15,15 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-  console.log(state, action)
   if (action.type === 'LOAD_ROOMS') {
     return {
       ...state, 
       rooms: action.rooms
+    } 
+  } else if (action.type === 'CLEAN_ROOMS') {
+    return {
+      ...state, 
+      rooms: []
     } 
   } else if (action.type === 'FILTER_CAPACITY') {
     return {
@@ -58,6 +63,11 @@ const reducer = (state, action) => {
     return {
       ...state,
       message: action.message,
+    }  
+  } else if (action.type === 'SHOW_MODAL_MESSAGE') {
+    return {
+      ...state,
+      modalMessage: action.message,
     }
   } else if (action.type === 'FILTER_EQUIPEMENT') {
     let equipements = state.equipements
@@ -76,13 +86,15 @@ const reducer = (state, action) => {
 
 export const actions = {
   loadRooms: (rooms) => store.dispatch({ type: 'LOAD_ROOMS', rooms }),
+  cleanRooms: (rooms) => store.dispatch({ type: 'CLEAN_ROOMS'}),
   handleCheckbox: (equipement) => store.dispatch({ type: 'FILTER_EQUIPEMENT', equipement }),
   handleCapacity: (capacity) => store.dispatch({ type: 'FILTER_CAPACITY', capacity }),
   handleDay: (day) => store.dispatch({ type: 'ADD_DAY', day }),
   handleEndHour: (hour) => store.dispatch({ type: 'ADD_END_HOURS', hour }),
   handleStartHour: (hour) => store.dispatch({ type: 'ADD_START_HOURS', hour }),
   handleRoomReservation: (room) => store.dispatch({ type: 'ADD_ROOM', room }),
-  showMessage: (message) => store.dispatch({ type: 'SHOW_MESSAGE', message })
+  showMessage: (message) => store.dispatch({ type: 'SHOW_MESSAGE', message }),
+  showModalMessage: (message) => store.dispatch({ type: 'SHOW_MODAL_MESSAGE', message }),
 }
 
 export const store = createStore(reducer, initialState)
