@@ -1,11 +1,11 @@
 export const loadRooms = () => {
-  return fetch('http://localhost:4000/rooms')
+  return fetch('https://radiant-hamlet-85171.herokuapp.com/rooms')
     .then(rooms => rooms.json())
 }
 
 export const filterRooms = (filters) => {
   return (
-  fetch('http://localhost:4000/rooms/',
+  fetch('https://radiant-hamlet-85171.herokuapp.com/rooms/',
     {
       method: 'post',
       body: JSON.stringify(filters),
@@ -17,7 +17,7 @@ export const filterRooms = (filters) => {
 
 export const filterDate = (date) => {
     return (
-    fetch('http://localhost:4000/availableRooms/',
+    fetch('https://radiant-hamlet-85171.herokuapp.com/availableRooms/',
       {
         method: 'post',
         body: JSON.stringify(date),
@@ -29,7 +29,7 @@ export const filterDate = (date) => {
 
 export const sendReservation = (reservation) => {
     return (
-    fetch('http://localhost:4000/reserveRoom/',
+    fetch('https://radiant-hamlet-85171.herokuapp.com/reserveRoom/',
       {
         method: 'post',
         body: JSON.stringify(reservation),
