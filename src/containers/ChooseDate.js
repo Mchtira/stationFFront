@@ -33,6 +33,7 @@ class SelectDate extends Component {
     const date = this.props.reservation
     const { startHour, endHour, day } = date
     if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
+      actions.loadRooms([])
       filterDate(date).then(actions.loadRooms)
       actions.showMessage('')
     } else {
