@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import ShowRooms from './containers/ShowRooms.js'
 import ChooseDate from './containers/ChooseDate.js'
 import { store } from './store.js'
@@ -12,28 +12,27 @@ const style = {
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor:'white',
-  margin: '0 auto',
+  backgroundColor: 'white',
   marginTop: '1%',
   padding: '2%',
   minHeight: appHeight
 }
 
 class App extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = store.getState()
     store.subscribe(() => this.setState(store.getState()))
   }
 
-  render() {
+  render () {
     return (
       <div style={style}>
-        <ChooseDate {...this.state}/>
-        <ShowRooms {...this.state}/>
+        <ChooseDate {...this.state} />
+        <ShowRooms {...this.state} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

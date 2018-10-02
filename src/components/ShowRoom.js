@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Reservation from './Reservation.js'
 
 const style = {
@@ -12,26 +12,26 @@ const style = {
     minWidth: '12em',
     minHeight: '12em',
     margin: '1%',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   roomInfo: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   equipements: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   button: {
-    marginBottom: '1%',
+    marginBottom: '1%'
   }
 }
 
 class ShowRoom extends Component {
-  render() {
+  render () {
     return (
       <div style={style.reservation}>
         <div style={style.room}>
@@ -40,18 +40,18 @@ class ShowRoom extends Component {
           <div>Capacité : {this.props.capacity}</div>
           <div>Equipements : </div>
           {this.props.equipements[0]
-          ? <div style={style.equipements}>
-              {this.props.equipements.map(equipement => 
+            ? <div style={style.equipements}>
+              {this.props.equipements.map(equipement =>
                 <div key={equipement.name}>{equipement.name}</div>)}
             </div>
-          : <div style={style.equipements}>Salle sans équipement</div>}
+            : <div style={style.equipements}>Salle sans équipement</div>}
         </div>
         <div style={style.button}>
-          <Reservation {...this.props}/>
+          <Reservation {...this.props} />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ShowRoom 
+export default ShowRoom

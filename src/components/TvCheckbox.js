@@ -19,33 +19,28 @@ class TvCheckbox extends Component {
     const filters = {
       equipements: store.getState().equipements,
       capacity: store.getState().capacity,
+      ...store.getState().reservation
     }
-    filterRooms(filters).then(actions.loadRooms)
+    filterRooms(filters)
+      .then(actions.loadRooms)
   }
 
   handleCheckbox = (equipement, e) => {
     actions.handleCheckbox(equipement)
+    this.isChecked = !this.isChecked
     this.sendForm(e)
   }
 
+  isChecked = false
+
   render() {
     return (
-      store.getState().equipements.includes('TV')
-      ? <React.Fragment>
-          <Input 
-            type='checkbox' 
-            onChange={(e) => this.handleCheckbox('TV', e)}
-            style={style.checkbox}
-            checked/>
-          <label style={style.label}>TV</label>
-        </React.Fragment>
-      : <React.Fragment>
-          <Input 
-            type='checkbox' 
-            style={style.checkbox}
-            onChange={(e) => this.handleCheckbox('TV', e)}/>
-          <label style={style.label}>TV</label>
-        </React.Fragment>
+      <React.Fragment>
+        <Input type='checkbox' style={style.checkbox} 
+        onClick={(e) => this.handleCheckbox('TV', e)}
+        checked={this.isChecked}/>
+        <label style={style.label}>TV</label>
+      </React.Fragment>
     );
   }
 }

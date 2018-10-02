@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { actions, store } from '../store.js'
 import { filterRooms } from '../api.js'
-import { Button, Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import TvCheckbox from '../components/TvCheckbox.js'
 import RetroCheckbox from '../components/RetroCheckbox.js'
 
 const style = {
-  filter: {
+  filters: {
     border: 'solid grey 4px',
     borderRadius: '10px',
     display: 'flex',
     flexDirection:'column',
     alignItems:'center',
     marginTop: '1%',
+  },
+  checkboxs: {
+    display: 'flex',
+    alignItems: 'baseline'
   }
 }
 
@@ -23,28 +27,28 @@ class RoomFilter extends Component {
     const filters = {
       equipements: store.getState().equipements,
       capacity: store.getState().capacity,
+      ...store.getState().reservation
     }
     filterRooms(filters).then(actions.loadRooms)
   }
 
-  handleCapacity = capacity => {
-    actions.handleCapacity(capacity)
+  handleCapacity = e => {
+    actions.handleCapacity(e.target.value)
+    this.sendForm(e)
   }
 
   render() {
     return (
-      <div style={style.filter}>
+      <div style={style.filters}>
         <div style={{textAlign: 'center'}}>
           Capacité minimum : 
-          <form onSubmit={this.sendForm}>
-            <Input
-              onChange={e => this.handleCapacity(e.target.value)}
-              value={store.getState().capacity}
-              type='number'/>
-          </form>
+          <Input
+            onChange={e => this.handleCapacity(e)}
+            value={store.getState().capacity}
+            type='number'/>
         </div>
-        <div style={{display: 'flex', alignItems: 'baseline'}}>
-          <TvCheckbox/>
+        <div style={style.checkboxs}>
+          <TvCheckbox />
           <RetroCheckbox/>
         </div>
       </div>

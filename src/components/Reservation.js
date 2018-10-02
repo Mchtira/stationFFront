@@ -21,6 +21,9 @@ const style = {
     alignItems:'center',
     justifyContent: 'center',
   },
+  text: {
+    textAlign: 'center',
+  }
 }
 
 class Reservation extends Component {
@@ -35,35 +38,39 @@ class Reservation extends Component {
   }
  
   onCloseModal = () => {
-    actions.handleRoomReservation('')
     actions.showModalMessage('')
+    actions.handleRoomReservation('')
     this.setState({ open: false })
   }
 
   handleSubmit = () => {
-    const reservation = { ...store.getState().reservation, name: store.getState().choosenRoom }
-    sendReservation(reservation).then(message => actions.showModalMessage(message))
+    const reservation = { 
+      ...store.getState().reservation,
+      name: store.getState().choosenRoom
+    }
+    sendReservation(reservation)
+      .then(message => actions.showModalMessage(message))
   }
 
   render() {
     return (
       <div>
-        <Button  compact onClick={this.onOpenModal} color='grey' content='Reserver'/>
+        <Button compact onClick={this.onOpenModal} color='grey' content='Reserver'/>
         <Modal open={this.state.open} onClose={this.onCloseModal} center>
           <div style={style.room}>
             <div>{this.props.name}</div>
             <div>{this.props.description}</div>
             <div>Capacité : {this.props.capacity}</div>
             <div>Equipements : </div>
-            {this.props.equipements[0] === []
+            {this.props.equipements[0]
             ? <div style={style.equipements}>
                 {this.props.equipements.map(equipement => 
-                <div key={equipement.name}>{equipement.name}</div>)}
+                <div key={this.props.name + equipement.name}>{equipement.name}</div>)}
               </div>
             : <div>Salle sans équipement</div>}
             {store.getState().modalMessage 
-            ? <div style={{textAlign: 'center'}}>{store.getState().modalMessage}</div> 
-            : <div style={{textAlign: 'center'}}>{`Reserver la ${this.props.name} 
+            ? <div style={style.text}>{store.getState().modalMessage}</div> 
+            : <div style={style.text}>{`Reserver la ${store.getState().choosenRoom} 
                 le ${store.getState().reservation.day}
                 de ${store.getState().reservation.startHour}
                 à ${store.getState().reservation.endHour} ?`}</div>} 

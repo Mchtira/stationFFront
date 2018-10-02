@@ -19,33 +19,30 @@ class RetroCheckbox extends Component {
     const filters = {
       equipements: store.getState().equipements,
       capacity: store.getState().capacity,
+      ...store.getState().reservation
     }
-    filterRooms(filters).then(actions.loadRooms)
+    filterRooms(filters)
+      .then(actions.loadRooms)
   }
 
   handleCheckbox = (equipement, e) => {
     actions.handleCheckbox(equipement)
+    this.isChecked = !this.isChecked
     this.sendForm(e)
   }
 
+  isChecked = false
+
   render() {
     return (
-      store.getState().equipements.includes('Retro Projecteur')
-        ? <React.Fragment> 
-            <Input 
-            type='checkbox' 
-            onChange={(e) => this.handleCheckbox('Retro Projecteur', e)}
-            style={style.checkbox}
-            checked/>
-            <label style={style.label}>Rétro Projecteur</label>
-          </React.Fragment>
-        : <React.Fragment>
-            <Input 
-            type='checkbox' 
-            style={style.checkbox}
-            onChange={(e) => this.handleCheckbox('Retro Projecteur', e)}/>
-            <label style={style.label}>Rétro Projecteur</label>
-          </React.Fragment>
+      <React.Fragment> 
+        <Input 
+        type='checkbox' 
+        onChange={(e) => this.handleCheckbox('Retro Projecteur', e)}
+        style={style.checkbox}
+        checked={this.isChecked}/>
+        <label style={style.label}>Rétro Projecteur</label>
+      </React.Fragment>
     );
   }
 }

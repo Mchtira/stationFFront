@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { actions } from '../store.js'
-import { filterDate, loadRooms } from '../api.js'
+import { filterRooms } from '../api.js'
 import { Button, Input } from 'semantic-ui-react'
 
 const style = {
@@ -31,10 +31,21 @@ class SelectDate extends Component {
   handleDate = (e) => {
     e.preventDefault()
     const date = this.props.reservation
-    const { startHour, endHour, day } = date
+    let { startHour, endHour, day } = date
+
     if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
-      filterDate(date).then(actions.loadRooms)
-      actions.showMessage('')
+      startHour = startHour.split(':').map(elem => Number(elem))
+      endHour = endHour.split(':').map(elem => Number(elem))
+      startHour = startHour[0] * 60 + startHour[1]
+      endHour = endHour[0] * 60 + endHour[1]
+
+      if (startHour > endHour) {
+        actions.showMessage("La date n'est pas conforme")
+      } else {
+        filterRooms(date).then(actions.loadRooms)
+        actions.showMessage('')
+      }
+
     } else {
       actions.showMessage('Merci de remplir tout les champs')
     }
