@@ -12,6 +12,7 @@ const style = {
     marginTop: '1%',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    minHeight: '15em',
   }
 }
 
@@ -44,7 +45,7 @@ class ShowRooms extends Component {
       return (
         <div>
           <RoomFilter {...this.props} />
-          <Loader active />
+          <div style={style.rooms}><Loader active /></div>
         </div>
       )
     }

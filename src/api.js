@@ -1,6 +1,8 @@
+const apiUrl = 'https://radiant-hamlet-85171.herokuapp.com'
+
 export const filterRooms = (filters) => {
   return (
-    window.fetch('http://localhost:4000/rooms/',
+    window.fetch(`${apiUrl}/rooms/`,
       {
         method: 'post',
         body: JSON.stringify(filters),
@@ -12,7 +14,7 @@ export const filterRooms = (filters) => {
 
 export const sendReservation = (reservation) => {
   return (
-    window.fetch('http://localhost:4000/reserveRoom/',
+    window.fetch(`${apiUrl}/reserveRoom/`,
       {
         method: 'post',
         body: JSON.stringify(reservation),
