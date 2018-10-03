@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { actions, store } from '../store.js'
 import { filterRooms } from '../api.js'
-import { Button, Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 import TvCheckbox from '../components/TvCheckbox.js'
 import RetroCheckbox from '../components/RetroCheckbox.js'
 
 const style = {
-  filter: {
-    border: 'solid grey 4px',
-    borderRadius: '10px',
+  filters: {
     display: 'flex',
-    flexDirection:'column',
-    alignItems:'center',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    border: 'solid black 2px',
+    background: 'white',
     marginTop: '1%',
+    padding: '2%',
+  },
+  inputcapacity: {
+    paddingLeft: '2%',
   }
 }
 
@@ -23,30 +27,46 @@ class RoomFilter extends Component {
     const filters = {
       equipements: store.getState().equipements,
       capacity: store.getState().capacity,
+      ...store.getState().reservation
     }
-    filterRooms(filters).then(actions.loadRooms)
+    let { startHour, endHour, day } = filters
+
+    if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
+      startHour = startHour.split(':').map(elem => Number(elem))
+      endHour = endHour.split(':').map(elem => Number(elem))
+      startHour = startHour[0] * 60 + startHour[1]
+      endHour = endHour[0] * 60 + endHour[1]
+
+      if (startHour > endHour) {
+        actions.showMessage("La date n'est pas conforme")
+      } else {
+        filterRooms(filters).then(actions.loadRooms)
+        actions.showMessage('')
+      }
+
+    } else {
+      actions.showMessage('Merci de remplir tout les champs')
+    }
   }
 
-  handleCapacity = capacity => {
-    actions.handleCapacity(capacity)
+  handleCapacity = e => {
+    actions.handleCapacity(e.target.value)
+    this.sendForm(e)
   }
 
   render() {
     return (
-      <div style={style.filter}>
-        <div style={{textAlign: 'center'}}>
-          Capacité minimum : 
-          <form onSubmit={this.sendForm}>
-            <Input
-              onChange={e => this.handleCapacity(e.target.value)}
-              value={store.getState().capacity}
-              type='number'/>
-          </form>
-        </div>
-        <div style={{display: 'flex', alignItems: 'baseline'}}>
-          <TvCheckbox/>
+      <div style={style.filters}>
+         <label style={{display: 'flex', alignItems: 'center'}}>
+            Capacité: 
+           <Input style={style.inputcapacity}
+            onChange={e => this.handleCapacity(e)}
+            value={store.getState().capacity}
+            type='number'
+          />
+        </label>
+          <TvCheckbox />
           <RetroCheckbox/>
-        </div>
       </div>
     );
   }

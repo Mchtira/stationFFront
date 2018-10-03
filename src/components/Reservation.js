@@ -3,12 +3,13 @@ import { actions, store } from '../store.js'
 import Modal from 'react-responsive-modal'
 import { sendReservation } from '../api.js'
 import { Button } from 'semantic-ui-react'
+import { prettyDate } from '../prettyDate.js'
 
 const style = {
   room: {
     marginTop: '1%',
-    minWidth: '10em',
-    minHeight: '10em',
+    minWidth: '25em',
+    minHeight: '15em',
     display: 'flex',
     flexDirection: 'column',
     alignItems:'center',
@@ -21,6 +22,9 @@ const style = {
     alignItems:'center',
     justifyContent: 'center',
   },
+  text: {
+    textAlign: 'center',
+  }
 }
 
 class Reservation extends Component {
@@ -35,38 +39,45 @@ class Reservation extends Component {
   }
  
   onCloseModal = () => {
-    actions.handleRoomReservation('')
     actions.showModalMessage('')
+    actions.handleRoomReservation('')
     this.setState({ open: false })
   }
 
   handleSubmit = () => {
-    const reservation = { ...store.getState().reservation, name: store.getState().choosenRoom }
-    sendReservation(reservation).then(message => actions.showModalMessage(message))
+    const reservation = { 
+      ...store.getState().reservation,
+      name: store.getState().choosenRoom
+    }
+    sendReservation(reservation)
+      .then(message => actions.showModalMessage(message))
   }
 
   render() {
     return (
       <div>
-        <Button  compact onClick={this.onOpenModal} color='grey' content='Reserver'/>
+        <Button compact onClick={this.onOpenModal} color='black' content='Reserver'/>
         <Modal open={this.state.open} onClose={this.onCloseModal} center>
           <div style={style.room}>
-            <div>{this.props.name}</div>
+          <div><h3>{this.props.name}</h3></div>
+          <br />
             <div>{this.props.description}</div>
-            <div>Capacité : {this.props.capacity}</div>
-            <div>Equipements : </div>
-            {this.props.equipements[0] === []
+          <div><b>Capacité :</b></div>
+          <div>{this.props.capacity} personnes</div>
+          <div><b>Equipements :</b></div>
+            {this.props.equipements[0]
             ? <div style={style.equipements}>
                 {this.props.equipements.map(equipement => 
-                <div key={equipement.name}>{equipement.name}</div>)}
+                <div key={this.props.name + equipement.name}>{equipement.name}</div>)}
               </div>
             : <div>Salle sans équipement</div>}
+            <br />
             {store.getState().modalMessage 
-            ? <div style={{textAlign: 'center'}}>{store.getState().modalMessage}</div> 
-            : <div style={{textAlign: 'center'}}>{`Reserver la ${this.props.name} 
-                le ${store.getState().reservation.day}
-                de ${store.getState().reservation.startHour}
-                à ${store.getState().reservation.endHour} ?`}</div>} 
+            ? <div style={style.text}>{store.getState().modalMessage}</div> 
+            : <div style={style.text}><b>{`Reserver la ${store.getState().choosenRoom}`}
+                <br /> {`le ${prettyDate(store.getState().reservation.day)} de ${store.getState().reservation.startHour}
+                à ${store.getState().reservation.endHour} ?`}</b></div>} 
+            <br />
             <Button content='Confirmer' color='blue' onClick={this.handleSubmit}/>
           </div>
         </Modal>

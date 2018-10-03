@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import { actions } from '../store.js'
-import { filterDate, loadRooms } from '../api.js'
+import { actions, store } from '../store.js'
+import { filterRooms } from '../api.js'
 import { Button, Input } from 'semantic-ui-react'
 
 const style = {
   component: {
-    border: 'solid grey 4px',
-    borderRadius: '10px',
+    border: 'solid black 2px',
+    background: 'white',
     display: 'flex',
     flexDirection:'column',
     alignItems:'center',
+    padding: '2%',
   },
-  button: {
-    marginLeft: '1%',
-    marginRight: '1%',
+  inputs: {
+    margin: '2%',
   },
   bar: {
     display: 'flex',
@@ -30,12 +30,26 @@ const style = {
 class SelectDate extends Component {
   handleDate = (e) => {
     e.preventDefault()
-    const date = this.props.reservation
-    const { startHour, endHour, day } = date
+    actions.cleanRooms()
+    const filters = {
+      equipements: store.getState().equipements,
+      capacity: store.getState().capacity,
+      ...store.getState().reservation
+    }
+    let { startHour, endHour, day } = filters
+
     if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
-      actions.loadRooms([])
-      filterDate(date).then(actions.loadRooms)
-      actions.showMessage('')
+      startHour = startHour.split(':').map(elem => Number(elem))
+      endHour = endHour.split(':').map(elem => Number(elem))
+      startHour = startHour[0] * 60 + startHour[1]
+      endHour = endHour[0] * 60 + endHour[1]
+
+      if (startHour > endHour) {
+        actions.showMessage("La date n'est pas conforme")
+      } else {
+        filterRooms(filters).then(actions.loadRooms)
+        actions.showMessage('')
+      }
     } else {
       actions.showMessage('Merci de remplir tout les champs')
     }
@@ -50,12 +64,12 @@ class SelectDate extends Component {
   render() {
     return (
       <div style={style.component}>
+        <h2>Réservation de salle</h2>
         <form onSubmit={this.handleDate} style={style.form}>
-            <div style={{padding: '1%'}}>Votre recherche</div>
             <div style={style.bar}>
-              <Input style={style.button} onChange={this.handleDay} type='date'/> de
-              <Input style={style.button} onChange={this.handleStartHour} type='time'/> à
-              <Input style={style.button} onChange={this.handleEndHour} type='time'/>
+              <Input style={style.inputs} onChange={this.handleDay} type='date'/> de
+              <Input style={style.inputs} onChange={this.handleStartHour} type='time'/> à
+              <Input style={style.inputs} onChange={this.handleEndHour} type='time'/>
             </div>
             <div style={{padding: '1%'}}>
               {this.props.message 
