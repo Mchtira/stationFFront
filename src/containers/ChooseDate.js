@@ -50,7 +50,6 @@ class SelectDate extends Component {
         filterRooms(filters).then(actions.loadRooms)
         actions.showMessage('')
       }
-
     } else {
       actions.showMessage('Merci de remplir tout les champs')
     }
