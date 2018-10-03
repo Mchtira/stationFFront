@@ -24,7 +24,7 @@ const style = {
     textAlign: 'center'
   },
   button: {
-    marginBottom: '1%',
+    marginBottom: '1%'
   }
 }
 
@@ -32,7 +32,7 @@ class ShowRoom extends Component {
   render () {
     console.log(this.props)
     return (
-      <div style={{... style.reservation, background: this.props.background}}>
+      <div style={{ ...style.reservation, background: this.props.background }}>
         <div style={style.room}>
           <div><h3>{this.props.name}</h3></div>
           <br />

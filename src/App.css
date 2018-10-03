@@ -1,4 +1,7 @@
 body {
-  background-image: url('./asset/stationf.jpg');
-  object-fit: cover no-repeat;
+  background-image: url('../src/asset/stationf.jpg');
+}
+
+loader {
+  top: 65%;
 }

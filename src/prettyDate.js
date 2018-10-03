@@ -1,5 +1,5 @@
 export const prettyDate = (date) => {
-  const d = new Date (date)
+  const d = new Date(date)
 
   const days = [
     'dimanche',

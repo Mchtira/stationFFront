@@ -14,7 +14,7 @@ const style = {
   flexDirection: 'column',
   marginTop: '1%',
   padding: '2%',
-  minHeight: appHeight,
+  minHeight: appHeight
 }
 
 class App extends Component {

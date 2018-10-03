@@ -24,7 +24,7 @@ class TvCheckbox extends Component {
     }
     
     let { startHour, endHour, day } = filters
-
+    // eslint-disable-next-line
     if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
       startHour = startHour.split(':').map(elem => Number(elem))
       endHour = endHour.split(':').map(elem => Number(elem))

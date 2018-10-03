@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
 import ShowRoom from '../components/ShowRoom.js'
 import RoomFilter from './RoomFilter.js'
-import { Loader } from 'semantic-ui-react'
+import { Loader, Dimmer } from 'semantic-ui-react'
+import { store } from '../store.js'
+import './showRooms.css'
 
 const style = {
   rooms: {
+    minHeight: '15em',
     border: 'solid black 2px',
     background: 'white',
     display: 'flex',
     alignItems: 'center',
     marginTop: '1%',
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    minHeight: '15em',
+    flexWrap: 'wrap'
+  },
+  dimmer: {
+    border: 'solid black 2px',
+    marginTop: '1%',
+    position: 'relative',
+    height: '15em'
   }
 }
 
@@ -41,14 +49,14 @@ class ShowRooms extends Component {
           </div>
         </div>
       )
-    } else {
+    } else if (!store.getState().message) {
       return (
         <div>
           <RoomFilter {...this.props} />
-          <div style={style.rooms}><Loader active /></div>
+          <Dimmer style={style.dimmer}active inverted><Loader /></Dimmer>
         </div>
       )
-    }
+    } else return <div />
   }
 }
 
