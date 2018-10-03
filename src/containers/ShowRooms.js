@@ -5,14 +5,13 @@ import { Loader } from 'semantic-ui-react'
 
 const style = {
   rooms: {
-    border: 'solid grey 4px',
-    borderRadius: '10px',
+    border: 'solid black 2px',
+    background: 'white',
     display: 'flex',
     alignItems: 'center',
     marginTop: '1%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   }
 }
 
@@ -34,7 +33,10 @@ class ShowRooms extends Component {
         <div>
           <RoomFilter {...this.props} />
           <div style={style.rooms}>
-            {this.props.rooms.map(room => <ShowRoom key={room.name} {... room} />)}
+            {this.props.rooms.map((room, index) => {
+              room.background = index % 2 === 0 ? 'lightgrey' : 'white'
+              return <ShowRoom key={room.name} {... room} />
+            })}
           </div>
         </div>
       )

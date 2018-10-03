@@ -21,8 +21,24 @@ class RetroCheckbox extends Component {
       capacity: store.getState().capacity,
       ...store.getState().reservation
     }
-    filterRooms(filters)
-      .then(actions.loadRooms)
+    let { startHour, endHour, day } = filters
+
+    if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
+      startHour = startHour.split(':').map(elem => Number(elem))
+      endHour = endHour.split(':').map(elem => Number(elem))
+      startHour = startHour[0] * 60 + startHour[1]
+      endHour = endHour[0] * 60 + endHour[1]
+
+      if (startHour > endHour) {
+        actions.showMessage("La date n'est pas conforme")
+      } else {
+        filterRooms(filters).then(actions.loadRooms)
+        actions.showMessage('')
+      }
+
+    } else {
+      actions.showMessage('Merci de remplir tout les champs')
+    }
   }
 
   handleCheckbox = (equipement, e) => {
@@ -35,14 +51,14 @@ class RetroCheckbox extends Component {
 
   render() {
     return (
-      <React.Fragment> 
+      <div> 
         <Input 
         type='checkbox' 
         onChange={(e) => this.handleCheckbox('Retro Projecteur', e)}
         style={style.checkbox}
         checked={this.isChecked}/>
         <label style={style.label}>Rétro Projecteur</label>
-      </React.Fragment>
+      </div>
     );
   }
 }

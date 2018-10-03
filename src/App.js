@@ -12,10 +12,9 @@ const style = {
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: 'white',
   marginTop: '1%',
   padding: '2%',
-  minHeight: appHeight
+  minHeight: appHeight,
 }
 
 class App extends Component {

@@ -7,12 +7,10 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    border: 'solid grey 4px',
-    borderRadius: '10px',
-    minWidth: '12em',
-    minHeight: '12em',
-    margin: '1%',
-    textAlign: 'center'
+    minHeight: '15em',
+    width: '33.33%',
+    textAlign: 'center',
+    padding: '2%'
   },
   roomInfo: {
     display: 'flex',
@@ -26,19 +24,20 @@ const style = {
     textAlign: 'center'
   },
   button: {
-    marginBottom: '1%'
+    marginBottom: '1%',
   }
 }
 
 class ShowRoom extends Component {
   render () {
+    console.log(this.props)
     return (
-      <div style={style.reservation}>
+      <div style={{... style.reservation, background: this.props.background}}>
         <div style={style.room}>
-          <div>{this.props.name}</div>
-          <div>{this.props.description}</div>
-          <div>Capacité : {this.props.capacity}</div>
-          <div>Equipements : </div>
+          <div><h3>{this.props.name}</h3></div>
+          <br />
+          <div><b>Capacité :</b> <br />{this.props.capacity} personnes</div>
+          <div><b>Equipements :</b></div>
           {this.props.equipements[0]
             ? <div style={style.equipements}>
               {this.props.equipements.map(equipement =>

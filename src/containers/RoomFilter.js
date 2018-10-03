@@ -7,16 +7,16 @@ import RetroCheckbox from '../components/RetroCheckbox.js'
 
 const style = {
   filters: {
-    border: 'solid grey 4px',
-    borderRadius: '10px',
     display: 'flex',
-    flexDirection:'column',
-    alignItems:'center',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    border: 'solid black 2px',
+    background: 'white',
     marginTop: '1%',
+    padding: '2%',
   },
-  checkboxs: {
-    display: 'flex',
-    alignItems: 'baseline'
+  inputcapacity: {
+    paddingLeft: '2%',
   }
 }
 
@@ -29,7 +29,24 @@ class RoomFilter extends Component {
       capacity: store.getState().capacity,
       ...store.getState().reservation
     }
-    filterRooms(filters).then(actions.loadRooms)
+    let { startHour, endHour, day } = filters
+
+    if (startHour, endHour, day && ![startHour, endHour, day].includes('')) {
+      startHour = startHour.split(':').map(elem => Number(elem))
+      endHour = endHour.split(':').map(elem => Number(elem))
+      startHour = startHour[0] * 60 + startHour[1]
+      endHour = endHour[0] * 60 + endHour[1]
+
+      if (startHour > endHour) {
+        actions.showMessage("La date n'est pas conforme")
+      } else {
+        filterRooms(filters).then(actions.loadRooms)
+        actions.showMessage('')
+      }
+
+    } else {
+      actions.showMessage('Merci de remplir tout les champs')
+    }
   }
 
   handleCapacity = e => {
@@ -40,17 +57,16 @@ class RoomFilter extends Component {
   render() {
     return (
       <div style={style.filters}>
-        <div style={{textAlign: 'center'}}>
-          Capacité minimum : 
-          <Input
+         <label style={{display: 'flex', alignItems: 'center'}}>
+            Capacité: 
+           <Input style={style.inputcapacity}
             onChange={e => this.handleCapacity(e)}
             value={store.getState().capacity}
-            type='number'/>
-        </div>
-        <div style={style.checkboxs}>
+            type='number'
+          />
+        </label>
           <TvCheckbox />
           <RetroCheckbox/>
-        </div>
       </div>
     );
   }
